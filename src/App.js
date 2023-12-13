@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { Cards } from "./components/cards/Cards";
+import Loader from "./components/Loader/Loader";
 
 function App() {
 
   const [data, setData] = useState([]);
+  const [loader,setLoader]=useState(false);
 
   useEffect(() => {
     const getData = async () => {
+      setLoader(true);
       const res = await fetch("https://api.punkapi.com/v2/beers");
       const parsedData = await res.json();
       setData(parsedData);
+      setLoader(false);
     };
     getData();
   }, []);
@@ -33,7 +37,7 @@ function App() {
 
       <section className="w-full flex items-center justify-center flex-wrap gap-10 pb-6">
 
-        {
+        {loader ? <Loader /> :
           data.filter((d) =>
             d.name.toLowerCase().includes(searchText.toLowerCase() === "" ? "" : searchText.toLowerCase()
             )).map((d) =>
