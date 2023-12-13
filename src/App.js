@@ -5,6 +5,8 @@ function App() {
 
   const [data, setData] = useState([]);
 
+  document.title="Good Game Theory";
+
   useEffect(() => {
     const getData = async () => {
       const res = await fetch("https://api.punkapi.com/v2/beers");
